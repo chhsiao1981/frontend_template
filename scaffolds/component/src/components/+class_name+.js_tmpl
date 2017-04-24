@@ -1,0 +1,18 @@
+import React, { Component } from 'react'
+import Empty from './Empty'
+
+
+class {{class_name}} extends Component {
+  render() {
+    const {dispatch, myId, ...params} = this.props
+    if(!myId) return (<Empty />)
+
+    return (
+      <div>
+        Hello {{class_name}}: {myId}  
+      </div>  
+    )
+  }
+}
+
+export default {{class_name}}

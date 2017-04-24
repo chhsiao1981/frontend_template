@@ -1,0 +1,25 @@
+import Immutable from 'immutable';
+import {funcMapDefault, init, setRoot, addChild} from './utils'
+
+import * as Classes from '../actions/Classes';
+import * as types from '../actions/Types';
+
+var funcMap = {
+  [types.INIT]: init,
+  [types.ADD_CHILD]: addChild,
+}
+
+
+/**
+ * default setup
+ */
+export default function {{module_name}} (state=Immutable.Map(), action={}) {
+  var myId = state.get('myId', '')
+
+  switch (action.myClass) {
+    case Classes.{{constant_name}}:
+      return funcMap[action.type] && funcMap[action.type](state, action) || funcMapDefault(state, action)
+    default:
+      return funcMapDefault(state, action)
+  }
+}

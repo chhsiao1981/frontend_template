@@ -1,0 +1,41 @@
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import Immutable from 'immutable'
+import {getUUID} from '../utils/utils'
+import * as do{{class_name}} from '../actions/{{class_name}}'
+import Empty from '../components/Empty'
+
+import styles from './{{class_name}}.css'
+
+class {{class_name}} extends Component {
+  componentWillMount() {
+    const {dispatch, location: {query}, actions: {do{{class_name}}}} = this.props
+    var myId = getUUID()
+    
+    dispatch(do{{class_name}}.init(myId, query))
+  }
+
+  render() {
+    const {dispatch, state, actions} = this.props
+    const { {{module_name}} } = state
+
+    var myId = {{module_name}}.get('myId', '')
+    var me = {{module_name}}.get(myId, Immutable.Map())
+
+    if(!myId) return (<Empty />)
+    return (
+      <div>
+        <div>Hello {{class_name}}: {myId}</div>
+      </div>  
+    )
+  }  
+}
+
+const mapStateToProps = (state, ownProps) => ({
+  actions: {
+    do{{class_name}},
+  },
+  state,
+})
+  
+export default connect(mapStateToProps)({{class_name}})

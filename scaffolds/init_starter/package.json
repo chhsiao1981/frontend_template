@@ -1,0 +1,38 @@
+{
+  "name": "my-app4",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "humps": "^2.0.0",
+    "immutable": "^3.8.1",
+    "lodash": "^4.16.1",
+    "moment": "^2.18.1",
+    "node-uuid": "^1.4.8",
+    "normalize.css": "^6.0.0",
+    "papaparse": "^4.2.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-ga": "^2.2.0",
+    "react-redux": "^5.0.4",
+    "react-router-dom": "^4.1.1",
+    "react-widgets": "^3.4.6",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
+    "superagent": "^3.5.2",
+    "superagent-bluebird-promise": "^4.2.0"
+  },
+  "devDependencies": {
+    "react-scripts": "0.9.5",
+    "redux-devtools": "^3.3.2",
+    "redux-devtools-dock-monitor": "^1.1.1",
+    "redux-devtools-log-monitor": "^1.2.0",
+    "redux-logger": "^3.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

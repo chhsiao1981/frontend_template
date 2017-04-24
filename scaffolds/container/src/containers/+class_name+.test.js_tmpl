@@ -1,0 +1,6 @@
+import React from 'react'
+import ReactDom from 'react-dom'
+import {{class_name}} from './{{class_name}}'
+
+it('should pass', () => {
+})
