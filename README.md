@@ -7,7 +7,7 @@ project name/directory is recommended to fit js style (using dash as project nam
 
 * good: frontend-template
 
-create-react-app .; git clone https://github.com/chhsiao1981/frontend_template.git; ./frontend_template/scripts/init_dev.sh; . __/bin/activate; ./scripts/init_starter.sh; cp config.js.tmpl config.js; npm install; ln -s ../config.js node_modules/config.js; npm start
+create-react-app .; git clone https://github.com/chhsiao1981/frontend_template.git; ./frontend_template/scripts/init_dev.sh; . __/bin/activate; ./scripts/init_starter.sh; cp config.js.tmpl config.js; npm install; ln -s ../config.js node_modules/config.js; cp config/webpack.config.dev.js node_modules/react-scripts/config; cp config/webpack.config.prod.js node_modules/react-scripts/config; npm start
 
 * start: ./scripts/init_starter.sh
 * create action/reducer: ./scripts/dev_reducer.sh
