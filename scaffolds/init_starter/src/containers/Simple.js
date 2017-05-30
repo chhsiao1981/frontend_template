@@ -13,7 +13,7 @@ class Simple extends Component {
 
     if(!myId) return (<Empty />)
     return (
-      <div>Hello {myId}</div>
+      <div>Hello Simple {myId}</div>
     )
   }
 }

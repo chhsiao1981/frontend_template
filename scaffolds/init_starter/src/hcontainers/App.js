@@ -28,7 +28,7 @@ class App extends Component {
     if(!myId) return (<Empty />)
     return (
       <div>
-        <div>Hello {myId}</div>
+        <div>Hello App {myId}</div>
         <Simple myId={simpleId} {...this.props} />
       </div>
     )
