@@ -9,8 +9,8 @@ export function funcMapDefault(state, action) {
 }
 
 export function setRoot(state=Immutable.Map(), action={}) {
-  const {myId} = action
-  return state.set('myId', myId)
+  const {myId, rootClass} = action
+  return state.merge({rootId: myId, rootClass})
 }
 
 export function init(state=Immutable.Map(), action={}) {
