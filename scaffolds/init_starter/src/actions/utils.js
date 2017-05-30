@@ -1,3 +1,4 @@
+import * as Classes from './Classes'
 import * as Types from './Types'
 
 export const init = ({myId, myClass, parentId, parentClass, ...params}) => {
@@ -10,7 +11,8 @@ export const init = ({myId, myClass, parentId, parentClass, ...params}) => {
 
 export const setRoot = (myId, myClass) => ({
   myId,
-  myClass,
+  myClass: Classes.APP,
+  rootClass: myClass,
   type: Types.SET_ROOT,
 })
 
@@ -29,4 +31,11 @@ const addChild = (myId, myClass, childId, childClass) => ({
   type: Types.ADD_CHILD,
   childId,
   childClass,
+})
+
+export const error = ({myId, myClass, ...params}) => ({
+  myId,
+  myClass,
+  type: Types.ERROR,
+  params,
 })

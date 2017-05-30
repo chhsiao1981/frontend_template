@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Immutable from 'immutable'
-import * as doApp from '../actions/App'
-import * as doSimple from '../actions/Simple'
-import {getUUID} from '../utils/utils'
+import {getUUID, getRoot, getRootId} from '../utils/utils'
 import Empty from '../components/Empty'
 
+import * as doApp from '../actions/App'
 import Simple from '../containers/Simple'
+import * as doSimple from '../actions/Simple'
 
 import styles from './App.css'
 
@@ -22,9 +22,9 @@ class App extends Component {
     const {dispatch, state, actions} = this.props
     const {app} = state
 
-    var myId = app.get('myId', '')
-    var me = app.get(myId, Immutable.Map())
-    var simpleId = app.getIn([myId, 'children', 'SIMPLE', 0])
+    var myId = getRootId(state)
+    var me = getRoot(state)
+    var simpleId = me.getIn(['children', 'SIMPLE', 0])
     if(!myId) return (<Empty />)
     return (
       <div>

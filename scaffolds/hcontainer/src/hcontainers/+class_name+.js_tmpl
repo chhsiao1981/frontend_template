@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Immutable from 'immutable'
-import {getUUID} from '../utils/utils'
+import {getUUID, getRoot, getRootId} from '../utils/utils'
 import * as do{{class_name}} from '../actions/{{class_name}}'
 import Empty from '../components/Empty'
 
@@ -19,8 +19,8 @@ class {{class_name}} extends Component {
     const {dispatch, state, actions} = this.props
     const { {{module_name}} } = state
 
-    var myId = {{module_name}}.get('myId', '')
-    var me = {{module_name}}.get(myId, Immutable.Map())
+    var myId = getRootId(state)
+    var me = getRoot(state)
 
     if(!myId) return (<Empty />)
     return (

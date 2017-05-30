@@ -1,4 +1,8 @@
 import uuid from 'node-uuid'
+import Immutable from 'immutable'
+import camelCase from 'camelcase'
+import decamelize from 'decamelize'
+import QueryString from 'query-string'
 
 var GLOBAL_IDS = new Set()
 
@@ -56,4 +60,32 @@ export function queryToString(query) {
     if (!query[cur]) return acc;
     return acc += `${cur}=${query[cur]}&`
   }, '')
+}
+
+export function parseQueryString(str) {
+  return QueryString.parse(str)
+}
+
+export function getRoot(state) {
+  const {app} = state
+  var rootId = app.get('rootId', '')
+  var rootClass = app.get('rootClass', '')
+  var camelCasedClass = toCamelCase(rootClass)
+
+  if(!state[camelCasedClass]) return Immutable.Map()
+
+  return state[camelCasedClass].get(rootId, Immutable.Map())
+}
+
+export function getRootId(state) {
+  const {app} = state
+  return app.get('rootId', '')
+}
+
+export function toCamelCase(str) {
+  return camelCase(str)
+}
+
+export function toUnderscore(str) {
+  return decamelize(str)
 }

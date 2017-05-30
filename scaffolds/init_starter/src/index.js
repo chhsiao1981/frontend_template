@@ -1,11 +1,10 @@
 import 'normalize.css/normalize.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import 'react-widgets/lib/less/react-widgets.less'
 import Moment from 'moment'
 
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
-import {HashRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 import configureStore from './store'
 import {Provider} from 'react-redux'
 import ReactGA from 'react-ga'
