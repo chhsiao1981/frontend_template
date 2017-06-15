@@ -8,7 +8,7 @@ import * as doSimple from './Simple'
 
 const myClass = 'APP'
 
-export const myDuck = createDuck(myClass, '{{project}}')
+export const myDuck = createDuck(myClass, '{{package}}')
 
 const INIT = myDuck.defineType('INIT')
 const ADD_CHILD = myDuck.defineType('ADD_CHILD')
