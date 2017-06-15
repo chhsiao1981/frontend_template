@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Empty from './Empty'
 
 
-class {{class_name}} extends Component {
+class {{class_name}} extends PureComponent {
   render() {
-    const {dispatch, myId, ...params} = this.props
+    const {myId, ...params} = this.props
     if(!myId) return (<Empty />)
 
     return (
