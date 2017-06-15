@@ -24,7 +24,7 @@ class {{class_name}} extends PureComponent {
   }
 
   render() {
-    const {{{module_name}}, actions: {do{{class_name}}}} = this.props
+    const { {{module_name}}, actions: {do{{class_name}}}} = this.props
 
     let myId = getRootId(this.props)
     let me = getRoot(this.props)
@@ -37,3 +37,5 @@ class {{class_name}} extends PureComponent {
     )
   }  
 }
+
+export default {{class_name}}
