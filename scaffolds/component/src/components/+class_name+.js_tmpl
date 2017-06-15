@@ -7,12 +7,11 @@ const cx = classnames.bind(styles)
 
 class {{class_name}} extends PureComponent {
   render() {
-    const {myId, ...params} = this.props
-    if(!myId) return (<Empty />)
-
+    const {...params} = this.props
+    
     return (
       <div>
-        Hello {{class_name}}: {myId}  
+        Hello {{class_name}}
       </div>  
     )
   }

@@ -4,6 +4,8 @@ import { fromJS } from 'immutable'
 import {getUUID} from '../utils/utils'
 import * as utils from './utils'
 
+import { myDuck as appDuck } from './App'
+
 const myClass = '{{constant_name}}'
 
 export const myDuck = createDuck(myClass, '{{project_name}}')
@@ -25,7 +27,7 @@ export const init = (myId, query) => {
 
 // reducers
 const reducer = myDuck.createReducer({
-  [INIT]: utils.reducerInit,
+  [INIT]: utils.reduceInit,
   [ADD_CHILD]: utils.reduceAddChild,
   [SET_ROOT]: utils.reduceSetRoot,
   [REMOVE_CHILDS]: utils.reduceRemoveChilds,

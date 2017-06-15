@@ -1,24 +1,39 @@
-import React, {Component} from 'react'
+import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import classnames from 'classnames/bind'
 import Immutable from 'immutable'
-import {getUUID, getRoot, getRootId} from '../utils/utils'
+import { getUUID, getRootId, getRoot, getChildId, getChildIds, parseQueryString } from '../utils/utils'
 import Empty from '../components/Empty'
 
 import styles from './{{class_name}}.css'
 
-class {{class_name}} extends Component {
-  render() {
-    const {dispatch, myId, state, actions: {do{{class_name}}}} = this.props
-    const { {{module_name}} } = state
-    if(!myId) return (<Empty />)
+// {{module_name}}
+import * as do{{class_name}} from '../reducers/{{class_name}}'
 
-    var root = getRoot(state)
-    var rootId = getRootId(state)
+const cx = classnames.bind(styles)
+
+class {{class_name}} extends PureComponent {
+  componentWillMount() {
+    const {location: {search}, actions: {do{{class_name}}}} = this.props
+    const query = parseQueryString(search)
     
-    var me = {{module_name}}.get(myId, Immutable.Map())
-    return (
-        <div>Hello {{class_name}}: {myId}</div>
-    )
+    let myId = getUUID()
+    
+    do{{class_name}}.init(myId, query)
   }
-}
 
-export default {{class_name}}
+  render() {
+    const {{{module_name}}, actions: {do{{class_name}}}} = this.props
+
+    let myId = getRootId(this.props)
+    let me = getRoot(this.props)
+
+    if(!myId) return (<Empty />)
+    return (
+      <div>
+        <div>Hello {{class_name}}: {myId}</div>
+      </div>  
+    )
+  }  
+}
