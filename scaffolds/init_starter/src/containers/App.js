@@ -6,6 +6,8 @@ import Immutable from 'immutable'
 import { getUUID, getRootId, getRoot, getChildId, getChildIds, parseQueryString } from '../utils/utils'
 import Empty from '../components/Empty'
 
+import logo from '../logo.svg'
+
 import styles from './App.css'
 
 // app
@@ -24,7 +26,7 @@ class App extends PureComponent {
     
     let myId = getUUID()
     
-    doApp.init(myId, '', query)
+    doApp.init(myId, query)
   }
   
   render() {
@@ -32,11 +34,37 @@ class App extends PureComponent {
 
     let myId = getRootId(this.props)
     let me = getRoot(this.props)
-    let simpleId = getChildId(me, 'SIMPLE')
+
     if(!myId) return (<Empty />)
+    
+    const simpleId = getChildId(me, 'SIMPLE')
+    const count = me.get('count', 0)
+
+    var onClick = (e) => {
+      console.log('onClick: start: myId:', myId)
+      doApp.increaseCount(myId)
+    }
+    
     return (
-      <div>
-        <div>Hello App: {myId}</div>
+      <div className={cx('App')}>
+        <div className={cx('header')}>
+          <img src={logo} className={cx('logo')} alt="logo" />
+          <h2>Welcome to React</h2>
+        </div>
+        <p className={cx('intro')}>
+          To get started, edit <code>src/App.js</code> and save to reload.
+        </p>
+        <code>
+          <a
+            href="https://github.com/chhsiao1981/frontend_template"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+          Frontend-template
+          </a>
+        </code>
+        <div>Hello App: {myId} count: {count}</div>
+        <button onClick={onClick}>Inc</button>
         <Simple myId={simpleId} {...this.props} />
       </div>
     )
