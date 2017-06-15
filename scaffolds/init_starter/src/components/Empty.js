@@ -1,8 +1,12 @@
-import React, {Component} from 'react'
+import React, { PureComponent } from 'react'
+import classnames from 'classnames/bind'
+import styles from './Empty.css'
 
-class Empty extends Component {
+const cx = classnames.bind(styles)
+
+class Empty extends PureComponent {
   render() {
-    return <div className="hide"></div>
+    return <div className={cx('hide')}></div>
   }
 }
 

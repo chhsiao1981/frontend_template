@@ -1,25 +1,36 @@
 import Immutable from 'immutable';
-import {funcMapDefault, init, setRoot, addChild} from './utils'
+import { createDuck } from 'redux-duck'
+import { fromJS } from 'immutable'
+import {getUUID} from '../utils/utils'
+import * as utils from './utils'
 
-import * as Classes from '../actions/Classes';
-import * as types from '../actions/Types';
+const myClass = '{{constant_name}}'
 
-var funcMap = {
-  [types.INIT]: init,
-  [types.ADD_CHILD]: addChild,
-}
+export const myDuck = createDuck(myClass, '{{project_name}}')
 
+const INIT = myDuck.defineType('INIT')
+const ADD_CHILD = myDuck.defineType('ADD_CHILD')
+const SET_ROOT = myDuck.defineType('SET_ROOT')
+const REMOVE_CHILDS = myDuck.defineType('REMOVE_CHILDS')
+const REMOVE_IDS = myDuck.defineType('REMOVE_IDS')
+const SET_DATA = myDuck.defineType('SET_DATA')
 
-/**
- * default setup
- */
-export default function {{module_name}} (state=Immutable.Map(), action={}) {
-  var myId = state.get('myId', '')
-
-  switch (action.myClass) {
-    case Classes.{{constant_name}}:
-      return funcMap[action.type] && funcMap[action.type](state, action) || funcMapDefault(state, action)
-    default:
-      return funcMapDefault(state, action)
+// init
+export const init = (myId, query) => {
+  return (dispatch, getState) => {
+    dispatch(utils.init({myId, myClass, myDuck, ...query}))
+    dispatch(utils.setRoot({myId, myClass, appDuck: myDuck}))
   }
 }
+
+// reducers
+const reducer = myDuck.createReducer({
+  [INIT]: utils.reducerInit,
+  [ADD_CHILD]: utils.reduceAddChild,
+  [SET_ROOT]: utils.reduceSetRoot,
+  [REMOVE_CHILDS]: utils.reduceRemoveChilds,
+  [REMOVE_IDS]: utils.reduceRemoveIds,
+  [SET_DATA]: utils.reduceSetData,
+}, Immutable.Map())
+
+export default reducer

@@ -1,42 +1,56 @@
-import 'normalize.css/normalize.css'
-import 'bootstrap/dist/css/bootstrap.css'
+import React from 'react'
+import ReactDOM, { Component } from 'react-dom'
+import { Provider } from 'react-redux'
+import { AppContainer } from 'react-hot-loader'
+import ReactGA from 'react-ga'
 import Moment from 'moment'
 
-import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
-import configureStore from './store'
-import {Provider} from 'react-redux'
-import ReactGA from 'react-ga'
 import config from 'config'
+import Routes from './Routes'
 import DevTools from './DevTools'
+import createStore from './reducers'
+import registerServiceWorker from './registerServiceWorker'
 
-import App from './hcontainers/App'
+import 'normalize.css/normalize.css'
+import 'bootstrap/dist/css/bootstrap.css'
 
-ReactGA.initialize(config.googleAnalyticsId);
+import styles from './index.css'
+
+import App from './containers/App'
+import Empty from './components/Empty'
+
+ReactGA.initialize(config.googleAnalyticsId)
 
 // useRouterHistory creates a composable higher-order function
-const store = configureStore()
+const store = createStore()
 
-export default class Root extends Component {
-  render() {
-    return (
+const render = Component => {
+  ReactDOM.render(
+    <AppContainer>
       <Provider store={store}>
-        <div>
-          <Router>
-            <Route path="/" component={App} />
-          </Router>
-          {this.renderDevTools()}
-        </div>
+      <div>
+      <Component />
+      {renderDevTools()}
+      </div>
       </Provider>
-    )
-  }
-
-  renderDevTools() {
-    if(process.env.NODE_ENV === 'production') return (<div></div>)
-    return (
-      <DevTools />
-    )
-  }
+    </AppContainer>,
+    document.getElementById('root')
+  )
 }
-ReactDOM.render(<Root />, document.getElementById('root'))
+
+const renderDevTools = () => {
+  if(process.env.NODE_ENV === 'production') return (<Empty />)
+  //return (<Empty />)
+  return (
+    <DevTools />
+  )
+}
+
+render(Routes)
+registerServiceWorker()
+
+if (module.hot) {
+  module.hot.accept('./Routes', () => {
+    render(Routes)
+  })
+}

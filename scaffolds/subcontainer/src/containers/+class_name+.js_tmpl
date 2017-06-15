@@ -1,0 +1,24 @@
+import React, {Component} from 'react'
+import Immutable from 'immutable'
+import {getUUID, getRoot, getRootId} from '../utils/utils'
+import Empty from '../components/Empty'
+
+import styles from './{{class_name}}.css'
+
+class {{class_name}} extends Component {
+  render() {
+    const {dispatch, myId, state, actions: {do{{class_name}}}} = this.props
+    const { {{module_name}} } = state
+    if(!myId) return (<Empty />)
+
+    var root = getRoot(state)
+    var rootId = getRootId(state)
+    
+    var me = {{module_name}}.get(myId, Immutable.Map())
+    return (
+        <div>Hello {{class_name}}: {myId}</div>
+    )
+  }
+}
+
+export default {{class_name}}

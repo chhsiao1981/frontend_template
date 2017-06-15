@@ -74,9 +74,9 @@ class ContainerProjectTemplate(MyTemplate):
     summary = 'container'
 
 
-class HContainerProjectTemplate(MyTemplate):
-    _template_dir = 'hcontainer'
-    summary = 'hcontainer'
+class SubContainerProjectTemplate(MyTemplate):
+    _template_dir = 'subcontainer'
+    summary = 'subcontainer'
 
 
 class ReducerProjectTemplate(MyTemplate):

@@ -7,7 +7,6 @@ import * as types from '../actions/Types';
 var funcMap = {
   [types.INIT]: init,
   [types.ADD_CHILD]: addChild,
-  [types.SET_ROOT]: setRoot,
 }
 
 

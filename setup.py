@@ -37,8 +37,8 @@ setup(name='frontend_template',
       init_dev = scaffolds:InitDevProjectTemplate
       init_starter = scaffolds:InitStarterProjectTemplate
       reducer = scaffolds:ReducerProjectTemplate
-      hcontainer = scaffolds:HContainerProjectTemplate
       container = scaffolds:ContainerProjectTemplate
+      subcontainer = scaffolds:SubContainerProjectTemplate
       component = scaffolds:ComponentProjectTemplate
       """,
 )

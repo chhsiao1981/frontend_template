@@ -1,19 +1,12 @@
 import * as superagent from 'superagent-bluebird-promise'
 import config from 'config'
-const {API_ROOT} = config
+import Cookie from 'js-cookie'
+import { queryToString } from '../utils/utils'
+const { API_ROOT } = config
 
 export const CALL_API = Symbol('Call API')
 
-function queryToString(query) {
-  if(!query) return ''
-
-  return Object.keys(query).reduce((acc, cur) => {
-    if (!query[cur]) return acc;
-    return acc += `${cur}=${query[cur]}&`
-  }, '')
-}
-
-function callApi(endpoint, {query, method='get', params, files, json}) {
+const callApi = (endpoint, {query, method='get', params, files, json}, isWithCredentials=true) => {
   if (endpoint.indexOf(API_ROOT) === - 1) {
     endpoint = API_ROOT + endpoint
   }
@@ -22,13 +15,13 @@ function callApi(endpoint, {query, method='get', params, files, json}) {
     endpoint = `${endpoint}?${queryToString(query)}`
   }
 
-  let request = superagent[method](endpoint);
+  let request = superagent[method](endpoint)
 
   if(files) {
-    for(var name in files) {
+    for(let name in files) {
       request = request.attach(name, files[name], files[name].name)
     }
-    for (var k in params) {
+    for (let k in params) {
       request = request.field(k, params[k])
     }
   }
@@ -39,9 +32,15 @@ function callApi(endpoint, {query, method='get', params, files, json}) {
   else if(json) {
     request = request.send(json)
   }
+
+  if(isWithCredentials) {
+    let allCookies = Cookie.get()
+    let csrftoken = Cookie.get('csrftoken') || ''
+    request = request.set({'X-CSRFToken': csrftoken})
+    request = request.withCredentials()
+  }
   
   return request
-    .withCredentials()
     .then((res) => {
       const json = JSON.parse(res.text)
 
@@ -50,10 +49,19 @@ function callApi(endpoint, {query, method='get', params, files, json}) {
       }
       return json
     })
+    .catch((res) => {
+      console.error('middleware.api: unable to call api: res:', res)
+      if(res && res.status === 401) {
+        let next_url = encodeURIComponent(window.location.href)
+        let url = `/signup/?next=${next_url}`
+        return window.location.href = url
+      }
+    })
 }
 
 export default store => next => action => {
   const callAPI = action[CALL_API]
+
   if (typeof callAPI === 'undefined') {
     return next(action)
   }
@@ -66,29 +74,29 @@ export default store => next => action => {
   }
 
   if (typeof endpoint !== 'string') {
-    throw new Error('Specify a string endpoint URL.');
+    throw new Error('Specify a string endpoint URL.')
   }
 
   if (!Array.isArray(types) || types.length !== 3) {
-    throw new Error('Expected an array of three action types.');
+    throw new Error('Expected an array of three action types.')
   }
 
   if (!types.every(type => typeof type === 'string')) {
-    throw new Error('Expected action types to be strings.');
+    throw new Error('Expected action types to be strings. types:', types)
   }
 
   if (typeof bailout !== 'undefined' && typeof bailout !== 'function') {
-    throw new Error('Expected bailout to either be undefined or a function.');
+    throw new Error('Expected bailout to either be undefined or a function.')
   }
 
   if (bailout && bailout(store.getState())) {
-    return Promise.resolve();
+    return Promise.resolve()
   }
   
-  var actionWith = (data) => {
-      const finalAction = Object.assign({}, action, data)
-      delete finalAction[CALL_API]
-      return finalAction
+  let actionWith = (data) => {
+    const finalAction = Object.assign({}, action, data)
+    delete finalAction[CALL_API]
+    return finalAction
   }
 
   const [requestType, successType, failureType] = types

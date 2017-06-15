@@ -38,6 +38,7 @@ setup(name='{{project}}',
       init_starter = scaffolds:InitStarterProjectTemplate
       reducer = scaffolds:ReducerProjectTemplate
       container = scaffolds:ContainerProjectTemplate
+      subcontainer = scaffolds:SubContainerProjectTemplate
       component = scaffolds:ComponentProjectTemplate
       """,
       )

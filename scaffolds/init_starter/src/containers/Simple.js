@@ -1,19 +1,21 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, { PureComponent } from 'react'
+import classnames from 'classnames/bind'
 import Immutable from 'immutable'
-import {getUUID} from '../utils/utils'
+import { getUUID, getRootId, getRoot, getChildId, getChildIds } from '../utils/utils'
 import Empty from '../components/Empty'
 
 import styles from './Simple.css'
 
-class Simple extends Component {
+const cx = classnames.bind(styles)
+
+class Simple extends PureComponent {
   render() {
-    const {dispatch, myId, state: {simple}, actions: {doSimple}} = this.props
-    var me = simple.get(myId, Immutable.Map())
+    const {myId, simple, actions: {doSimple}} = this.props
+    let me = simple.get(myId, Immutable.Map())
 
     if(!myId) return (<Empty />)
     return (
-      <div>Hello Simple {myId}</div>
+      <div>Hello Simple: {myId}</div>
     )
   }
 }
