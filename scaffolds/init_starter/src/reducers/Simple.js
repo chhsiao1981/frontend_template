@@ -5,7 +5,7 @@ import * as utils from './utils'
 
 const myClass = 'SIMPLE'
 
-const myDuck = createDuck(myClass, '{{package}}')
+const myDuck = createDuck(myClass, '{{project_name}}')
 
 const INIT = myDuck.defineType('INIT')
 const ADD_CHILD = myDuck.defineType('ADD_CHILD')

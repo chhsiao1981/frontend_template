@@ -1,6 +1,9 @@
 import React, { PureComponent } from 'react'
+import classnames from 'classnames/bind'
 import Empty from './Empty'
+import styles from './{{class_name}}.css'
 
+const cx = classnames.bind(styles)
 
 class {{class_name}} extends PureComponent {
   render() {

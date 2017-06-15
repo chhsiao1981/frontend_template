@@ -54,6 +54,8 @@ class MyTemplate(PyramidTemplate):
         if sub_pkg_name:
             pkg_name += '.' + sub_pkg_name
 
+        project_name = vars['project']
+
         vars['module_name'] = module_name
         vars['class_name'] = class_name
         vars['sub_pkg_name'] = sub_pkg_name
@@ -62,6 +64,7 @@ class MyTemplate(PyramidTemplate):
         vars['test_name'] = test_name
         vars['test_dir'] = test_dir
         vars['pkg_name'] = pkg_name
+        vars['project_name'] = project_name
 
 
 class ComponentProjectTemplate(MyTemplate):
@@ -79,9 +82,9 @@ class SubContainerProjectTemplate(MyTemplate):
     summary = 'subcontainer'
 
 
-class ReducerProjectTemplate(MyTemplate):
-    _template_dir = 'reducer'
-    summary = 'reducer'
+class ModuleProjectTemplate(MyTemplate):
+    _template_dir = 'module'
+    summary = 'module'
 
 
 class InitStarterProjectTemplate(MyTemplate):

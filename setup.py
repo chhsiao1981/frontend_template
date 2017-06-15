@@ -36,7 +36,7 @@ setup(name='frontend_template',
       [pyramid.scaffold]
       init_dev = scaffolds:InitDevProjectTemplate
       init_starter = scaffolds:InitStarterProjectTemplate
-      reducer = scaffolds:ReducerProjectTemplate
+      module = scaffolds:ModuleProjectTemplate
       container = scaffolds:ContainerProjectTemplate
       subcontainer = scaffolds:SubContainerProjectTemplate
       component = scaffolds:ComponentProjectTemplate

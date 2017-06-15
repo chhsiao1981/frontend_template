@@ -36,7 +36,7 @@ setup(name='{{project}}',
       entry_points="""\
       [pyramid.scaffold]
       init_starter = scaffolds:InitStarterProjectTemplate
-      reducer = scaffolds:ReducerProjectTemplate
+      module = scaffolds:ModuleProjectTemplate
       container = scaffolds:ContainerProjectTemplate
       subcontainer = scaffolds:SubContainerProjectTemplate
       component = scaffolds:ComponentProjectTemplate
