@@ -3,33 +3,20 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import classnames from 'classnames/bind'
 import Immutable from 'immutable'
-import { getUUID, getRootId, getRoot, getChildId, getChildIds, parseQueryString } from '../utils/utils'
+import { getUUID, getRootId, getRoot, getChildId, getChildIds } from '../utils/utils'
 import Empty from '../components/Empty'
 
 import styles from './{{class_name}}.css'
 
-// {{module_name}}
-import * as do{{class_name}} from '../reducers/{{class_name}}'
-
 const cx = classnames.bind(styles)
 
 class {{class_name}} extends PureComponent {
-  componentWillMount() {
-    const {location: {search}, actions: {do{{class_name}}}} = this.props
-    const query = parseQueryString(search)
-    
-    let myId = getUUID()
-    
-    do{{class_name}}.init(myId, query)
-  }
-
   render() {
-    const { {{module_name}}, actions: {do{{class_name}}}} = this.props
-
-    let myId = getRootId(this.props)
-    let me = getRoot(this.props)
+    const { myId, {{module_name}}, actions: {do{{class_name}}}} = this.props
 
     if(!myId) return (<Empty />)
+
+    let me = {{module_name}}.get(myId, Immutable.Map())
     return (
       <div>
         <div>Hello {{class_name}}: {myId}</div>
