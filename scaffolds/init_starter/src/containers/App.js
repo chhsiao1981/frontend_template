@@ -37,7 +37,7 @@ class App extends PureComponent {
 
     if(!myId) return (<Empty />)
     
-    const simpleIds = getChildIds(me, 'SIMPLE')
+    const simpleIds = getChildIds(me, 'SIMPLE').toJS()
     const count = me.get('count', 0)
 
     var onClickInc = (e) => {
@@ -55,9 +55,9 @@ class App extends PureComponent {
       doApp.addSimple(myId)
     }
 
-    var onClickRemoveSimple = (e) => {
-      console.log('onClickRemoveSimple: start: myId:', myId)
-      doApp.removeSimple(myId)
+    var onClickRemoveSimples = (e) => {
+      console.log('onClickRemoveSimples: start: myId:', myId)
+      doApp.removeSimples(myId, simpleIds)
     }
     
     return (
@@ -82,7 +82,7 @@ class App extends PureComponent {
         <button onClick={onClickInc}>Inc</button>
         <button onClick={onClickInc2}>Inc2</button>
         <button onClick={onClickAddSimple}>Add Simple</button>
-        <button onClick={onClickRemoveSimple}>Remove Simple</button>
+        <button onClick={onClickRemoveSimples}>Remove Simples</button>
         {simpleIds.map((eachSimpleId) => <Simple myId={eachSimpleId} {...this.props} />)}
       </div>
     )

@@ -14,7 +14,7 @@ const INIT = myDuck.defineType('INIT')
 const ADD_CHILD = myDuck.defineType('ADD_CHILD')
 const SET_ROOT = myDuck.defineType('SET_ROOT')
 const REMOVE_CHILDS = myDuck.defineType('REMOVE_CHILDS')
-const REMOVE_IDS = myDuck.defineType('REMOVE_IDS')
+const REMOVE = myDuck.defineType('REMOVE')
 const SET_DATA = myDuck.defineType('SET_DATA')
 const INCREASE_COUNT = myDuck.defineType('INCREASE_COUNT')
 
@@ -78,7 +78,7 @@ const reducer = myDuck.createReducer({
   [ADD_CHILD]: utils.reduceAddChild,
   [SET_ROOT]: utils.reduceSetRoot,
   [REMOVE_CHILDS]: utils.reduceRemoveChilds,
-  [REMOVE_IDS]: utils.reduceRemoveIds,
+  [REMOVE]: utils.reduceRemove,
   [SET_DATA]: utils.reduceSetData,
   [INCREASE_COUNT]: _increaseCount,
 }, Immutable.Map())

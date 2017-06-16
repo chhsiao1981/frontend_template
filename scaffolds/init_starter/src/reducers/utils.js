@@ -4,28 +4,29 @@ import { toCamelCase, toUnderscore } from '../utils/utils'
 // init
 export const init = ({myId, myClass, myDuck, parentId, parentClass, parentDuck, ...params}) => {
   return (dispatch, getState) => {
-    dispatch(initCore({myId, myClass, myDuck, parentId, parentClass, ...params}))
+    dispatch(initCore({myId, myClass, myDuck, parentId, parentClass, parentDuck, ...params}))
     if(parentId)
       dispatch(addChild(parentId, parentClass, parentDuck, myId, myClass))
   }
 }
 
-const initCore = ({myId, myClass, myDuck, parentId, parentClass, ...params}) => ({
+const initCore = ({myId, myClass, myDuck, parentId, parentClass, parentDuck, ...params}) => ({
   myId,
   myClass,
   type: myDuck.defineType('INIT'),
   parentId,
   parentClass,
+  parentDuck,
   ...params,
 })
 
 export const reduceInit = (state, action) => {
-  const {myId, myClass, parentId, type, ...params} = action
+  const {myId, myClass, parentId, parentClass, parentDuck, type, ...params} = action
 
   let currentList = state.get('ids', Immutable.List())
   let newList = currentList.push(myId)
   
-  return state.merge({ids: newList, [myId]: {myClass, parentId, ...params}})
+  return state.merge({ids: newList, [myId]: {myClass, parentId, parentClass, parentDuck, ...params}})
 }
 
 // set-root
