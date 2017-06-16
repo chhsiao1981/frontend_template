@@ -1,12 +1,12 @@
 import { createDuck } from 'redux-duck'
 import Immutable from 'immutable'
 
-import { getUUID } from '../utils/utils'
+import { getUUID, toCamelCase } from '../utils/utils'
 import * as utils from './utils'
 
 import * as doSimple from './Simple'
 
-const myClass = 'APP'
+export const myClass = 'APP'
 
 export const myDuck = createDuck(myClass, '{{project_name}}')
 
@@ -24,7 +24,7 @@ export const init = (myId, query) => {
   
   return (dispatch, getState) => {
     dispatch(utils.init({myId, myClass, myDuck, count: 0, ...query}))
-    dispatch(utils.setRoot({myId, myClass, appDuck: myDuck}))
+    dispatch(utils.setRoot(myId, myClass, myDuck))
 
     dispatch(doSimple.init(simpleId, myId, myClass, myDuck))
   }
@@ -41,6 +41,35 @@ const _increaseCount = (state, action) => {
   const {myId} = action
   let count = state.getIn([myId, 'count'], 0)
   return state.setIn([myId, 'count'], count + 1)
+}
+
+// increase count2
+export const increaseCount2 = (myId) => {
+  return (dispatch, getState) => {
+    let stateClass = toCamelCase(myClass)
+    let state = getState()[stateClass]
+    if(!state) return
+    let me = state.get(myId)
+    if(!me) return
+    let count = me.get('count', 0) + 1
+    dispatch(utils.setData(myId, myClass, myDuck, {count}))
+  }
+}
+
+// add simple
+export const addSimple = (myId) => {
+  let simpleId = getUUID()
+  
+  return (dispatch, getState) => {
+    dispatch(doSimple.init(simpleId, myId, myClass, myDuck))
+  }
+}
+
+// remove simple
+export const removeSimples = (myId, simpleIds) => {
+  return (dispatch, getState) => {
+    dispatch(utils.removeChilds(myId, myClass, myDuck, simpleIds, doSimple.myClass))
+  }
 }
 
 // reducers

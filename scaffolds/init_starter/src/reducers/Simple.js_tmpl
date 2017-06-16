@@ -1,11 +1,11 @@
 import Immutable from 'immutable'
 import { createDuck } from 'redux-duck'
-import { getUUID } from '../utils/utils'
+import { getUUID, toCamelCase } from '../utils/utils'
 import * as utils from './utils'
 
-const myClass = 'SIMPLE'
+export const myClass = 'SIMPLE'
 
-const myDuck = createDuck(myClass, '{{project_name}}')
+export const myDuck = createDuck(myClass, '{{project_name}}')
 
 const INIT = myDuck.defineType('INIT')
 const ADD_CHILD = myDuck.defineType('ADD_CHILD')
@@ -17,6 +17,13 @@ const SET_DATA = myDuck.defineType('SET_DATA')
 export const init = (myId, parentId, parentClass, parentDuck) => {
   return (dispatch, getState) => {
     dispatch(utils.init({myId, myClass, myDuck, parentId, parentClass, parentDuck}))
+  }
+}
+
+// remove
+export const remove = (myId) => {
+  return (dispatch, getState) => {
+    dispatch(utils.remove([myId], myClass, myDuck))
   }
 }
 
